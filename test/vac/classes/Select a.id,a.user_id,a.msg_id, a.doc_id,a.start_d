@@ -1,0 +1,26 @@
+Select a.id,a.user_id,a.msg_id, a.doc_id,a.start_date,a.vac_id,b.salutation, b.first_name, b.last_name, b.mobile, b.refer_by_doc, b.status 
+FROM msg_schedule_master a , user_details b , doc_details c  
+where a.user_id = b.user_id 
+and a.doc_id = c.mobile \
+and a.msg_send_status != 'send' 
+AND UNIX_TIMESTAMP (a.start_date) >= UNIX_TIMESTAMP(CURDATE()) 
+AND UNIX_TIMESTAMP (a.start_date) < UNIX_TIMESTAMP(DATE_ADD(CURDATE(),INTERVAL +3 DAY))
+
+
+
+
+
+Select a.id,a.user_id,d.mother_name as name,a.msg_id,a.msg_type, a.doc_id,a.start_date,b.salutation, b.first_name, b.last_name, b.mobile, b.refer_by_doc, b.status FROM msg_schedule_master a , user_details b , doc_details c ,pregenancy_details d where a.user_id = b.user_id and a.doc_id = c.mobile and a.msg_id = d.id and a.user_id = d.user_id and a.msg_send_status != 'send' and a.msg_type = 'pregnancy' 
+AND UNIX_TIMESTAMP (a.start_date) >= UNIX_TIMESTAMP(CURDATE()) 
+AND UNIX_TIMESTAMP (a.start_date) < UNIX_TIMESTAMP(DATE_ADD(CURDATE(),INTERVAL +3 DAY))
+ORDER BY `a`.`user_id` 
+
+Select a.id,a.user_id,d.mother_name,a.msg_id,a.msg_type, a.doc_id,a.start_date,b.salutation, b.first_name, b.last_name, b.mobile, b.refer_by_doc, b.status 
+FROM msg_schedule_master a , user_details b , doc_details c ,pregenancy_details d 
+where a.user_id = b.user_id 
+and a.doc_id = c.mobile 
+and a.msg_id = d.id 
+and a.user_id = d.user_id
+and a.msg_send_status != 'send' 
+and a.msg_type = 'pregnancy' 
+order by a.user_id,a.msg_id
